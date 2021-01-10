@@ -37,5 +37,9 @@
             android:name="barcode"
             app:argType="string"
             android:defaultValue="default" />
+        <argument
+            android:name="genericProductName"
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
 </navigation>

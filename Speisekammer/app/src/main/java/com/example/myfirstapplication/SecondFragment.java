@@ -129,8 +129,11 @@ public class SecondFragment extends Fragment {
                             System.out.println(foundProduct);
                             SecondFragmentDirections.ActionSecondFragmentToProductConfimation action = SecondFragmentDirections.actionSecondFragmentToProductConfimation();
                             action.setBarcode(barcodes.valueAt(0).displayValue);
+                            action.setGenericProductName(foundProduct);
                             NavHostFragment.findNavController(SecondFragment.this)
                                     .navigate(action);
+                            NavHostFragment.findNavController(SecondFragment.this)
+                                    .navigate(R.id.action_SecondFragment_to_productConfimation);
                         }
                     }
 

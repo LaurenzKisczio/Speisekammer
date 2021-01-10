@@ -8,18 +8,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProductConfimation#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProductConfimation extends Fragment {
 
     private String barcode;
+    private String genericProductName;
     private TextView barcodeText;
-
+    private EditText genericProductNameText;
     public ProductConfimation() {
         // Required empty public constructor
     }
@@ -38,15 +35,14 @@ public class ProductConfimation extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
-        barcodeText = view.findViewById(R.id.barcodeText);
-
+        barcodeText = view.findViewById(R.id.barcodeTextConfirmation);
+        genericProductNameText = view.findViewById(R.id.genericProductNameField);
         ProductConfimationArgs args = ProductConfimationArgs.fromBundle(getArguments());
-        String barcode = args.getBarcode();
-        barcodeText.post(new Runnable() {
-            @Override
-            public void run() {
-                barcodeText.setText(barcode);
-            }
-        });
+        barcode = args.getBarcode();
+        genericProductName = args.getGenericProductName();
+
+        barcodeText.setText(barcode);
+        genericProductNameText.setText(genericProductName);
+
     }
 }
