@@ -33,11 +33,10 @@ public class SecondFragment extends Fragment {
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
+    private ArrayList<String[]> database;
     private String barcodeData;
-    private String bdb = "bdb.txt";
     private String kcalper100 = "0";
     private String foundProduct = "";
-    private ArrayList<String[]> database = new ArrayList<String[]>();
     public SecondFragment() throws FileNotFoundException {
     }
 
@@ -54,9 +53,8 @@ public class SecondFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         surfaceView = view.findViewById(R.id.surfaceView);
 
-        initialiseDetectorsAndSources();
         try {
-            initialiseDatabse();
+            initialiseDetectorsAndSources();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,15 +67,8 @@ public class SecondFragment extends Fragment {
         });
     }
 
-    private void initialiseDatabse() throws IOException {
-        Scanner scanner = new Scanner(getResources().getAssets().open(bdb));
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            database.add(line.split(";"));
-        }
-    }
-
-    private void initialiseDetectorsAndSources() {
+    private void initialiseDetectorsAndSources() throws IOException {
+        database = ((Speisekammer) this.getActivity().getApplication()).getDatabase();
         barcodeDetector = new BarcodeDetector.Builder(this.getActivity())
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build();

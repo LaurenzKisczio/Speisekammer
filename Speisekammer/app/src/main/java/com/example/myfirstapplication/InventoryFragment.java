@@ -39,8 +39,18 @@ public class InventoryFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView inventoryText = view.findViewById(R.id.InventoryList);
         SharedPreferences sharedPref = this.getActivity().getPreferences(this.getContext().MODE_PRIVATE);
+        TextView inventoryText = view.findViewById(R.id.InventoryList);
+        view.findViewById(R.id.clearInventory).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.clear();
+                editor.apply();
+                inventoryText.setText("");
+            }
+        });
+
         Map<String, ?> barcodes = sharedPref.getAll();
         for (Map.Entry<String, ?> entry : barcodes.entrySet()) {
             output += entry.getKey() + "/" + entry.getValue() + "\n";
