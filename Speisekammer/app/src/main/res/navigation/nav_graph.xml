@@ -24,5 +24,18 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_productConfimation"
+            app:destination="@id/ProductConfimation" />
+    </fragment>
+    <fragment
+        android:id="@+id/ProductConfimation"
+        android:name="com.example.myfirstapplication.ProductConfimation"
+        android:label="fragment_product_confimation"
+        tools:layout="@layout/fragment_product_confimation" >
+        <argument
+            android:name="barcode"
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
 </navigation>

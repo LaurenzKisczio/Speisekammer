@@ -30,7 +30,6 @@ import java.util.Scanner;
 public class SecondFragment extends Fragment {
 
     private SurfaceView surfaceView;
-    private TextView barcodeText;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
@@ -54,7 +53,7 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         surfaceView = view.findViewById(R.id.surfaceView);
-        barcodeText = view.findViewById(R.id.barcodeText);
+
         initialiseDetectorsAndSources();
         try {
             initialiseDatabse();
@@ -128,19 +127,12 @@ public class SecondFragment extends Fragment {
                             foundProduct = database.get(i)[1];
                             kcalper100 = database.get(i)[3];
                             System.out.println(foundProduct);
-                            barcodeText.setText(foundProduct);
-                            break;
+                            SecondFragmentDirections.ActionSecondFragmentToProductConfimation action = SecondFragmentDirections.actionSecondFragmentToProductConfimation();
+                            action.setBarcode(barcodes.valueAt(0).displayValue);
+                            NavHostFragment.findNavController(SecondFragment.this)
+                                    .navigate(action);
                         }
                     }
-                    barcodeText.post(new Runnable() {
-                        @Override
-                        public void run() {
-                                barcodeData = barcodes.valueAt(0).displayValue;
-                                barcodeText.setText("Barcode:" +barcodeData + "\n"
-                                        +"Produkt" + foundProduct+ "\n"
-                                        + "Kcal pro 100g" + kcalper100);
-                        }
-                    });
 
                 }
             }
